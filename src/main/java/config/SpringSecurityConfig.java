@@ -13,6 +13,7 @@ import web.MainController;
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String ADMIN_ROLE = "ADMIN";
     private static final String USER_ROLE = "USER";
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -35,6 +36,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user").password("password").roles(USER_ROLE);
+                .withUser("user").password("password").roles(USER_ROLE)
+                .and()
+                .withUser("admin").password("password").roles(ADMIN_ROLE, USER_ROLE)
+        ;
     }
 }
